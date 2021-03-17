@@ -31,7 +31,7 @@ module.exports = (env) => {
             extensions: ['.tsx', '.ts', '.js'],
         },
         output: {
-            filename: 'rh24-sdk.js',
+            filename: 'rh24-webapp-sdk.js',
             path: path.resolve(__dirname, 'dist'),
             library: 'rh24Sdk',
             libraryTarget: 'umd',

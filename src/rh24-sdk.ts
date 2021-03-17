@@ -7,17 +7,17 @@ declare global {
 type Rh24ApplicationConfig = {
   partyId: string
   rh24BaseUrl: string
-  options: {
-    marginTop: string
-    onLocationChange?: (relativeLocation: string) => void
-    replaceHistoryStateOnLocationChange: boolean
-    replaceDocumentTitle: boolean
-    disableCache: boolean
+  options?: {
+    marginTop?: string
+    onLocationChange?: (relativePath: string) => void
+    replaceHistoryStateOnLocationChange?: boolean
+    replaceDocumentTitle?: boolean
+    disableCache?: boolean
   }
-  theme: {
-    backgroundColor: string
-    backgroundImage: string
-    logoSrc: string
+  theme?: {
+    backgroundColor?: string
+    backgroundImage?: string
+    logoSrc?: string
   }
 }
 
@@ -52,11 +52,10 @@ export class Rh24WebApp {
 
     const iframe = document.createElement('iframe')
 
-    let iframeSrc = `${this._config.rh24BaseUrl.replace(/\'/g, '')}/app/${
-      relativePath.startsWith('/') ? relativePath.slice(1) : relativePath
-    }`
+    let iframeSrc = `${this._config.rh24BaseUrl.replace(/\'/g, '')}/app/${relativePath.startsWith('/') ? relativePath.slice(1) : relativePath
+      }`
 
-    if (this._config.options.disableCache) {
+    if (this._config.options?.disableCache) {
       iframeSrc += `?v=${Math.random()}`
       iframeSrc = iframeSrc.replace('/?', '?')
     }
@@ -64,7 +63,7 @@ export class Rh24WebApp {
     iframe.src = iframeSrc
     iframe.id = 'rh24-iframe'
     iframe.style.width = '100%'
-    iframe.style.height = `calc(100vh - ${this._config.options.marginTop})`
+    iframe.style.height = `calc(100vh - ${this._config.options?.marginTop || 0})`
     iframe.style.border = 'none'
     iframe.setAttribute('data-testid', 'rh24-iframe')
 
@@ -90,18 +89,18 @@ export class Rh24WebApp {
       case 'RH24_EMBEDDED_LOCATION_CHANGE': {
         const rh24EmbededRoute: string = (ev.data.payload?.pathname || '/').replace('/app', '') || '/'
         if (
-          this._config.options.replaceHistoryStateOnLocationChange &&
+          this._config.options?.replaceHistoryStateOnLocationChange &&
           rh24EmbededRoute.indexOf('myorganizations') === -1
         ) {
           window.history.replaceState(null, rh24EmbededRoute, rh24EmbededRoute)
         }
-        if (this._config.options.onLocationChange) {
-          this._config.options.onLocationChange(rh24EmbededRoute)
+        if (this._config.options?.onLocationChange) {
+          this._config.options?.onLocationChange(rh24EmbededRoute)
         }
         break
       }
       case 'RH24_EMBEDDED_DOCUMENT_TITLE': {
-        if (this._config.options.replaceDocumentTitle) {
+        if (this._config.options?.replaceDocumentTitle) {
           document.title = ev.data.payload
         }
         break
