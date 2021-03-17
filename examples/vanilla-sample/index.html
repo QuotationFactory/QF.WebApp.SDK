@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles/main.css">
+    <title>HTML sample</title>
+</head>
+
+<body>
+    <div id="rh24-container" />
+    <script src="https://rhodium24.io/sdk/rh24-sdk.js"></script>
+    <script>
+        fetch('env.json').then((res) => res.json()).then((config) => {
+            const rh24 = new rh24Sdk.Rh24WebApp({
+                partyId: config.partyId,
+                rh24BaseUrl: config.baseUrl,
+                options: {
+                    marginTop: '0',
+                    replaceHistoryStateOnLocationChange: false,
+                    onLocationChange: (path) => {
+                        window.location.hash = path
+                    }
+                },
+                theme: {
+                    logoSrc: config.logoSrc,
+                    backgroundColor: 'red',
+                    backgroundImage: ''
+                }
+            })
+
+            rh24.render('rh24-container', window.location.hash.slice(1));
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "module": "commonjs",
+    "declaration": true,
+    "outDir": "./dist",
+    "strict": true,
+    "noImplicitAny": false
+  },
+  "include": ["src", "env.d.ts", "src/.env.d.ts"],
+  "exclude": ["node_modules", "**/__tests__/*"],
+  "allowJs": true
+}
