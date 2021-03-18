@@ -2,7 +2,7 @@
 <br />
 <p align="center">
   <a href="https://github.com/Rhodium24/rh24-webapp-sdk">
-    <img src="https://www.metal-heaven.com/wp-content/uploads/2019/09/icon_rh24-2-150x150.png" alt="Logo" width="80" height="80">
+    <img src="https://www.metal-heaven.com/wp-content/uploads/2019/09/logo_rhodium24_wit-2-1000x234.png" alt="Logo" height="80">
   </a>
 
   <h3 align="center">Rhodium24 - WebApp - SDK</h3>
