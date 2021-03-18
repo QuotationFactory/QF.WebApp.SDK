@@ -77,7 +77,7 @@ npm install @metal-heaven/rh24-webapp-sdk
 or you can reference the script hosted on Rhodium24 CDN
 
 ```html
-<script src='https://rhodium24.io/sdk/rh24-webapp-sdk.js'></script>
+<script src="https://rhodium24.io/sdk/rh24-webapp-sdk.js"></script>
 ```
 
 ## Prerequisites
@@ -98,7 +98,7 @@ Be aware that is preferable to run Rhodium24 using the hole view port. Please co
 <div id="rh24-container" />
 ```
 
-4. Instanciate the rh24-sdk
+4. Instanciate the rh24-webapp-sdk
 
 ```javascript
 const rh24 = new rh24Sdk.Rh24WebApp({

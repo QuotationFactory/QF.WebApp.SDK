@@ -17,7 +17,7 @@ module.exports = (env) => {
 
     return {
         mode: 'production',
-        entry: './src/rh24-sdk.ts',
+        entry: './src/rh24-webapp-sdk.ts',
         module: {
             rules: [
                 {
@@ -62,7 +62,7 @@ module.exports = (env) => {
 
 //     return {
 //         mode: 'production',
-//         entry: './src/rh24-sdk.ts',
+//         entry: './src/rh24-webapp-sdk.ts',
 //         module: {
 //             rules: [
 //                 {
