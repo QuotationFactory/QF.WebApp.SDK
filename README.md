@@ -88,7 +88,7 @@ Be aware that is preferable to run Rhodium24 using the hole view port. Please co
 
 ## Usage
 
-1. Get your partyId in [Rh24 integration settings page](https://rhodium24.io/settings/dev/webapp)
+1. Get your partyId in [Rh24 integration settings page](https://rhodium24.io/app/settings/integrations/webapp)
 
 2. Install the script in the desired page
 
