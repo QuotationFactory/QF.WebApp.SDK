@@ -1,0 +1,31 @@
+trigger:
+  tags:
+    include:
+      - v*
+
+stages:
+  - stage: 'build_and_deploy_to_cdn'
+    displayName: 'BuildAndCopy'
+    pool:
+      vmImage: 'ubuntu-latest'
+    jobs:
+      - job: 'Build'
+        displayName: 'Build'
+        steps:
+          - task: NodeTool@0
+            inputs:
+              versionSpec: '10.x'
+            displayName: 'install node'
+          - script: |
+              npm run build
+            displayName: 'Build'
+          - task: AzureFileCopy@4
+            inputs:
+              SourcePath: '$(System.DefaultWorkingDirectory)/dist'
+              azureSubscription: $(AzureSubscription)
+              Destination: 'AzureBlob'
+              storage: $(StorageAccountName)
+              ContainerName: '$web'
+              TargetPath: '/sdk'
+
+
