@@ -1,4 +1,4 @@
-import { Rh24WebApp } from '../rh24-sdk'
+import { Rh24WebApp } from '../rh24-webapp-sdk'
 
 let rh24: Rh24WebApp
 

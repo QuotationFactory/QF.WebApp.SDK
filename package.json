@@ -5,8 +5,8 @@
   "files": [
     "dist/**/*"
   ],
-  "main": "dist/rh24-sdk.js",
-  "typings": "dist/rh24-sdk.d.ts",
+  "main": "dist/rh24-webapp-sdk.js",
+  "typings": "dist/rh24-webapp-sdk.d.ts",
   "scripts": {
     "build": "webpack --mode production",
     "format": "prettier --write \"src/**/*.ts\"",
