@@ -19,7 +19,7 @@ stages:
           - script: |
               npm install && npm run build && ls dist
             displayName: 'Build'
-          - task: AzureFileCopy@4
+          - task: AzureFileCopy@3
             inputs:
               SourcePath: '$(System.DefaultWorkingDirectory)/dist'
               azureSubscription: $(AzureSubscription)
