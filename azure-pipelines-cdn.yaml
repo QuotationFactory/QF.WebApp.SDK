@@ -3,6 +3,8 @@ trigger:
     include:
       - v*
 
+pr: none
+
 stages:
   - stage: 'build_and_deploy_to_cdn'
     displayName: 'BuildAndCopy'
