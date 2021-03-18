@@ -26,4 +26,4 @@ stages:
               Destination: 'AzureBlob'
               storage: $(StorageAccountName)
               ContainerName: '$web'
-              TargetPath: 'sdk'
+              BlobPrefix: 'sdk'
