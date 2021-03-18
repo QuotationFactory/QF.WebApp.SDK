@@ -52,8 +52,9 @@ export class Rh24WebApp {
 
     const iframe = document.createElement('iframe')
 
-    let iframeSrc = `${this._config.rh24BaseUrl.replace(/\'/g, '')}/app/${relativePath.startsWith('/') ? relativePath.slice(1) : relativePath
-      }`
+    let iframeSrc = `${this._config.rh24BaseUrl.replace(/\'/g, '')}/app/${
+      relativePath.startsWith('/') ? relativePath.slice(1) : relativePath
+    }`
 
     if (this._config.options?.disableCache) {
       iframeSrc += `?v=${Math.random()}`
