@@ -25,4 +25,5 @@ stages:
               azureSubscription: $(AzureSubscription)
               Destination: 'AzureBlob'
               storage: $(StorageAccountName)
-              ContainerName: '$web/sdk'
+              ContainerName: '$web'
+              TargetPath: 'sdk'
