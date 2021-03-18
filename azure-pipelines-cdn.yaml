@@ -17,7 +17,7 @@ stages:
               versionSpec: '10.x'
             displayName: 'install node'
           - script: |
-              npm install && npm run build
+              npm install && npm run build && ls dist
             displayName: 'Build'
           - task: AzureFileCopy@4
             inputs:
@@ -25,5 +25,4 @@ stages:
               azureSubscription: $(AzureSubscription)
               Destination: 'AzureBlob'
               storage: $(StorageAccountName)
-              ContainerName: '$web'
-              TargetPath: '/sdk'
+              ContainerName: '$web/sdk'
