@@ -1,25 +1,5 @@
-declare global {
-  interface Window {
-    Rh24WebApp: Rh24WebApp
-  }
-}
+import { Rh24ApplicationConfig } from './types'
 
-type Rh24ApplicationConfig = {
-  partyId: string
-  rh24BaseUrl: string
-  options?: {
-    marginTop?: string
-    onLocationChange?: (relativePath: string) => void
-    replaceHistoryStateOnLocationChange?: boolean
-    replaceDocumentTitle?: boolean
-    disableCache?: boolean
-  }
-  theme?: {
-    backgroundColor?: string
-    backgroundImage?: string
-    logoSrc?: string
-  }
-}
 
 export class Rh24WebApp {
   private _config: Rh24ApplicationConfig
@@ -52,9 +32,8 @@ export class Rh24WebApp {
 
     const iframe = document.createElement('iframe')
 
-    let iframeSrc = `${this._config.rh24BaseUrl.replace(/\'/g, '')}/app/${
-      relativePath.startsWith('/') ? relativePath.slice(1) : relativePath
-    }`
+    let iframeSrc = `${this._config.rh24BaseUrl.replace(/\'/g, '')}/app/${relativePath.startsWith('/') ? relativePath.slice(1) : relativePath
+      }`
 
     if (this._config.options?.disableCache) {
       iframeSrc += `?v=${Math.random()}`
