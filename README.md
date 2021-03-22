@@ -137,7 +137,7 @@ The `render` method receives two parameters: the container element id and the re
 
 ### onLocationChange
 
-You can define how to handle location changes by defining the `options.onLocationChage` method.
+You can define how to handle location changes by defining the `options.onLocationChange` method.
 
 ```javascript
 // deep link integration using window.location.hash
