@@ -1,5 +1,5 @@
 import { Rh24WebApp } from './rh24-webapp-sdk'
-import { Theme } from '@material-ui/core/styles'
+import { ThemeOptions } from '@material-ui/core/styles'
 
 declare global {
   interface Window {
@@ -34,5 +34,5 @@ export type Rh24ApplicationConfig = {
     replaceDocumentTitle?: boolean
     disableCache?: boolean
   }
-  theme?: Theme
+  theme?: ThemeOptions
 }
