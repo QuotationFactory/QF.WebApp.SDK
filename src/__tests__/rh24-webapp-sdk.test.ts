@@ -14,9 +14,11 @@ beforeEach(() => {
       disableCache: false
     },
     theme: {
-      backgroundColor: '',
-      backgroundImage: '',
-      logoSrc: ''
+      logoSrc: '',
+      palette: {
+        primary: { main: '#00ff00' },
+        secondary: { main: '#ff0000' }
+      }
     }
   })
 })
