@@ -121,23 +121,21 @@ The options object comes with some handy flags to control what the sdk will do f
 - `onLocationChange`: `(relativePath: string) => void`: Callback to control the Rhodium24 onLocationChange event. If you don't define it and has `replaceHistoryStateOnLocationChange` the HTML5 History API (pushState) will be used to change the browser URL
 - `replaceHistoryStateOnLocationChange`: If `true` will use the HTML History API to change the browser URL when you navigate in Rhodium24 pages.
 - `replaceDocumentTitle`: If `true` will change the `document.title` to be in sync with Rhodium24 context
-- `disableCache`: If `true` will add a dummy querystring (`?v=Math.random()`) to iframe src in order to not get a cached resut.
+- `disableCache`: If `true` will add a dummy querystring (`?v=Math.random()`) to iframe src in order to not get a cached result.
 
 ## Theme
 
-Over the time we will allow you to customize more aspects of Rhodium24 to flawsy integrate it with your company design. For now we have the following capabilities
-
-- `logoSrc`: Define the logo that will be show in Rhodium24.
+Rhodium24 uses the React-MaterialUI library, allowing the use of `ThemeOptions` to customize many aspects of the user interface. Please refer to a sample implmentation of this mechanism in the examples folder.
 
 ## Advanced
 
 ### Routes
 
-The `render` method receives two parameters: the container element id and the relative path to render Rhodium24. Is up to you define how you will handle the routes and send it to the correct page. Check the samples for usage within a React App and for vanilla HTML app.
+The `render` method receives two parameters: the container element id and the relative path to render Rhodium24. It's up to you define how you will handle the routes and send it to the correct page. Check the samples for usage within a React App and for vanilla HTML app.
 
 ### onLocationChange
 
-You can define how to handle location changes by defining the `options.onLocationChage` method.
+You can define how to handle location changes by defining the `options.onLocationChange` method.
 
 ```javascript
 // deep link integration using window.location.hash

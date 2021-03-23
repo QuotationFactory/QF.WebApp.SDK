@@ -1,7 +1,8 @@
 import { useEffect } from 'react';
 import './App.css';
 
-import { Rh24WebApp } from 'rh24-webapp-sdk';
+import { Rh24WebApp } from '@metal-heaven/rh24-webapp-sdk';
+import { colors } from '@material-ui/core';
 
 function App() {
   useEffect(() => {
@@ -16,9 +17,68 @@ function App() {
         disableCache: true
       },
       theme: {
+
         logoSrc: process.env.REACT_APP_RH24_LOGO_SRC || '',
-        backgroundColor: 'red',
-        backgroundImage: ''
+        typography: {
+          fontFamily: "'Poppins', sans-serif",
+          button: {
+            textTransform: 'lowercase' as any
+          }
+        },
+        overrides: {
+          MuiCssBaseline: {
+            '@global': {
+              body: {
+                backgroundImage: 'none',
+              }
+            }
+          },
+          MuiAppBar: {
+            colorPrimary: {
+              backgroundColor: colors.grey['900'],
+              color: colors.grey['100'],
+              '& button': {
+                color: 'inherit'
+              },
+              '& .MuiInputBase-root > div': {
+                color: 'inherit'
+              },
+            },
+          },
+          MuiFormLabel: {
+            root: {
+              whiteSpace: 'nowrap' as any
+            }
+          },
+          MuiInputLabel: {
+            root: {
+              "&$focused": {
+                color: "currentColor",
+                borderColor: "black",
+              },
+              borderColor: "white",
+            },
+          }
+        },
+        verticalMenu: {
+          backgroundColor: colors.grey['900'],
+        },
+        palette: {
+          type: 'dark',
+          primary: { main: colors.common.white },
+          // text: {
+          //   primary: colors.common.black
+          // },
+          // background: {
+          //   default: '#000',
+          //   paper: colors.common.white
+          // }
+        },
+        props: {
+          MuiInputLabel: {
+            shrink: true,
+          }
+        },
       }
     })
 

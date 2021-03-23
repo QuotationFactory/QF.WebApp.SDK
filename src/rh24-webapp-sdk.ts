@@ -1,25 +1,4 @@
-declare global {
-  interface Window {
-    Rh24WebApp: Rh24WebApp
-  }
-}
-
-type Rh24ApplicationConfig = {
-  partyId: string
-  rh24BaseUrl: string
-  options?: {
-    marginTop?: string
-    onLocationChange?: (relativePath: string) => void
-    replaceHistoryStateOnLocationChange?: boolean
-    replaceDocumentTitle?: boolean
-    disableCache?: boolean
-  }
-  theme?: {
-    backgroundColor?: string
-    backgroundImage?: string
-    logoSrc?: string
-  }
-}
+import { Rh24ApplicationConfig } from './types'
 
 export class Rh24WebApp {
   private _config: Rh24ApplicationConfig
