@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import './App.css';
 
 import { Rh24WebApp } from '@metal-heaven/rh24-webapp-sdk';
+import { colors } from '@material-ui/core';
 
 function App() {
   useEffect(() => {
@@ -16,29 +17,26 @@ function App() {
         disableCache: true
       },
       theme: {
+
         logoSrc: process.env.REACT_APP_RH24_LOGO_SRC || '',
         typography: {
-          fontFamily: ['Lato', 'sans-serif'].join(','),
+          fontFamily: "'Poppins', sans-serif",
           button: {
-            textTransform: 'none' as any
+            textTransform: 'lowercase' as any
           }
-        },
-        verticalMenu: {
-          backgroundColor: 'rgba(229, 229, 229, 0.95)',
         },
         overrides: {
           MuiCssBaseline: {
             '@global': {
               body: {
                 backgroundImage: 'none',
-                backgroundSize: 'cover'
               }
             }
           },
           MuiAppBar: {
             colorPrimary: {
-              backgroundColor: '#434C59',
-              color: '#fafafa',
+              backgroundColor: colors.grey['900'],
+              color: colors.grey['100'],
               '& button': {
                 color: 'inherit'
               },
@@ -62,13 +60,19 @@ function App() {
             },
           }
         },
+        verticalMenu: {
+          backgroundColor: colors.grey['900'],
+        },
         palette: {
-          primary: { main: colors.blue['700'] },
-          textPrimary: { main: colors.grey },
-          background: {
-            default: '#c5c5c560',
-            paper: colors.common.white
-          }
+          type: 'dark',
+          primary: { main: colors.common.white },
+          // text: {
+          //   primary: colors.common.black
+          // },
+          // background: {
+          //   default: '#000',
+          //   paper: colors.common.white
+          // }
         },
         props: {
           MuiInputLabel: {
