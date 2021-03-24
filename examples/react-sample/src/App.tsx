@@ -36,43 +36,18 @@ function App() {
           MuiAppBar: {
             colorPrimary: {
               backgroundColor: colors.grey['900'],
-              color: colors.grey['100'],
-              '& button': {
-                color: 'inherit'
-              },
-              '& .MuiInputBase-root > div': {
-                color: 'inherit'
-              },
             },
           },
-          MuiFormLabel: {
-            root: {
-              whiteSpace: 'nowrap' as any
-            }
-          },
-          MuiInputLabel: {
-            root: {
-              "&$focused": {
-                color: "currentColor",
-                borderColor: "black",
-              },
-              borderColor: "white",
-            },
-          }
         },
         verticalMenu: {
-          backgroundColor: colors.grey['900'],
+          backgroundColor: colors.grey['800'],
         },
         palette: {
           type: 'dark',
-          primary: { main: colors.common.white },
-          // text: {
-          //   primary: colors.common.black
-          // },
-          // background: {
-          //   default: '#000',
-          //   paper: colors.common.white
-          // }
+          primary: { main: colors.lime['400'] },
+          text: {
+            primary: colors.grey['100'],
+          }
         },
         props: {
           MuiInputLabel: {
