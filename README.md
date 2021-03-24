@@ -125,7 +125,95 @@ The options object comes with some handy flags to control what the sdk will do f
 
 ## Theme
 
-Rhodium24 uses the React-MaterialUI library, allowing the use of `ThemeOptions` to customize many aspects of the user interface. Please refer to a sample implmentation of this mechanism in the examples folder.
+Rhodium24 uses the React-MaterialUI library, allowing the use of `ThemeOptions` to customize many aspects of the user interface. Please refer to a sample implmentation of this mechanism in the examples folder. Some common customization could be the following
+
+if you'd like to see all the default material-ui properties that can be changed, please check [material-ui's default theme](https://material-ui.com/customization/default-theme/)
+
+### Changing the background
+
+To override <body> styling properties progress with the following:
+
+```javascript
+  theme: {
+      overrides: {
+        '@global': {
+          backgroundImage: 'none',
+          backgroundColor: '#FAFAFA"
+        }
+      }
+  }
+
+```
+
+### Palette
+
+You can define many aspect of the color palette for the web site
+
+```javascript
+theme: {
+  palette: {
+    primary: {
+      main: 'blue'
+    }
+    secondary: {
+      main: 'green'
+    }
+    error: {
+      main: 'red'
+    }
+    warning: {
+      main: 'yellow'
+    }
+    info: {
+      main: 'cyan'
+    }
+    success: {
+      main: '#4caf50'
+    }
+  }
+}
+```
+
+### Typography
+
+The font-family should be imported by the host page before Rh24 loads with the following sample configuration
+
+```javascript
+   theme: {
+     typography: {
+       fontFamily: "'Poppins', sans-serif",
+     }
+   }
+```
+
+### AppBar
+
+To change the top navigation bar (where you have the search and the menu)
+
+```javascript
+  theme: {
+    overrides: {
+      MuiAppBar: {
+        colorPrimary: {
+          backgroundColor: '#FAFAFA',
+          color: 'black'
+        }
+      }
+    }
+  }
+```
+
+### Project Page vertical menu
+
+This will change the styling of the left side menu within the project page
+
+```javascript
+  theme: {
+    verticalMenu: {
+      backgroundColor: '#FAFAFA',
+    },
+  }
+```
 
 ## Advanced
 
