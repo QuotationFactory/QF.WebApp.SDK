@@ -125,9 +125,11 @@ The options object comes with some handy flags to control what the sdk will do f
 
 ## Theme
 
-Rhodium24 uses the React-MaterialUI library, allowing the use of `ThemeOptions` to customize many aspects of the user interface. Please refer to a sample implmentation of this mechanism in the examples folder. Some common customization could be the following
+Rhodium24 uses the React-MaterialUI library, allowing the use of `ThemeOptions` to customize many aspects of the user interface. Please refer to a sample implmentation of this mechanism in the examples folder. Some common customization could be the following.
 
-if you'd like to see all the default material-ui properties that can be changed, please check [material-ui's default theme](https://material-ui.com/customization/default-theme/)
+if you'd like to see all the default material-ui properties that can be changed, please check [material-ui's default theme](https://material-ui.com/customization/default-theme/).
+
+Needs inspiration? checkout the [material theme creator](https://bareynol.github.io/mui-theme-creator/)
 
 ### Changing the background
 
