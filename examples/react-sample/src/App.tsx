@@ -17,7 +17,6 @@ function App() {
         disableCache: true
       },
       theme: {
-
         logoSrc: process.env.REACT_APP_RH24_LOGO_SRC || '',
         typography: {
           fontFamily: "'Poppins', sans-serif",
@@ -35,19 +34,25 @@ function App() {
           },
           MuiAppBar: {
             colorPrimary: {
-              backgroundColor: colors.grey['900'],
+              backgroundColor: '#24344d',
             },
           },
         },
         verticalMenu: {
-          backgroundColor: colors.grey['800'],
+          backgroundColor: '#24344d'
         },
         palette: {
           type: 'dark',
-          primary: { main: colors.lime['400'] },
-          text: {
-            primary: colors.grey['100'],
-          }
+          primary: {
+            main: '#5893df',
+          },
+          secondary: {
+            main: '#2ec5d3',
+          },
+          background: {
+            default: '#192231',
+            paper: '#24344d',
+          },
         },
         props: {
           MuiInputLabel: {
