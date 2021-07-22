@@ -18,7 +18,7 @@ declare module '@material-ui/core/styles/createMuiTheme' {
   }
 
   /**
-   *  enhanced Material-UI Theme object with customizations options 
+   *  enhanced Material-UI Theme object with customizations options
    */
   interface Theme {
     logoSrc: string
@@ -30,7 +30,7 @@ declare module '@material-ui/core/styles/createMuiTheme' {
   }
 
   /**
-   * enhanced Material-UI ThemeOptions object 
+   * enhanced Material-UI ThemeOptions object
    * @see https://material-ui.com/customization/theming/
    */
   interface ThemeOptions {
@@ -51,10 +51,10 @@ declare module '@material-ui/core/styles/createMuiTheme' {
     }
     /**
      * Comma separated font family names that needs to be imported from googleFonts.
-     * 
+     *
      * @example: https://fonts.googleapis.com/css2?family=<fontFamily>&display=swap
      */
-    googleFonts?: string,
+    googleFonts?: string
   }
 }
 
