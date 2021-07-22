@@ -178,7 +178,7 @@ theme: {
 
 ### Typography
 
-The font-family should be imported by the host page before Rh24 loads with the following sample configuration
+If the host page already import the necessary fonts, you can set the the fontFamily like this
 
 ```javascript
    theme: {
@@ -186,6 +186,20 @@ The font-family should be imported by the host page before Rh24 loads with the f
        fontFamily: "'Poppins', sans-serif",
      }
    }
+```
+
+But, if the host page don't import the necessary fonts, you should also inform the fontFamilies that need to be imported from Google Fonts
+
+```javascript
+  theme: {
+    googleFonts: 'Poppins, Lato',
+    typography: {
+      fontFamily: 'Poppins' //default fontFamily
+      h1: {
+        fontFamily: 'Lato' //override the fontFamily h1 tag
+      }
+    }
+  }
 ```
 
 ### AppBar
