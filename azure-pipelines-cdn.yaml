@@ -22,6 +22,25 @@ stages:
               npm install && npm run build && ls dist
             displayName: 'Build'
           - task: AzureFileCopy@3
+            displayName: 'Copy to Dev'
+            inputs:
+              SourcePath: '$(System.DefaultWorkingDirectory)/dist'
+              azureSubscription: $(AzureSubscription_dev)
+              Destination: 'AzureBlob'
+              storage: $(StorageAccountName_dev)
+              ContainerName: '$web'
+              BlobPrefix: 'sdk'
+          - task: AzureFileCopy@3
+            displayName: 'Copy to UAT'
+            inputs:
+              SourcePath: '$(System.DefaultWorkingDirectory)/dist'
+              azureSubscription: $(AzureSubscription_uat)
+              Destination: 'AzureBlob'
+              storage: $(StorageAccountName_uat)
+              ContainerName: '$web'
+              BlobPrefix: 'sdk'
+          - task: AzureFileCopy@3
+            displayName: 'copy to prd'
             inputs:
               SourcePath: '$(System.DefaultWorkingDirectory)/dist'
               azureSubscription: $(AzureSubscription)
