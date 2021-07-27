@@ -11,7 +11,7 @@ beforeEach(() => {
       onLocationChange: (relativeLocation = '') => null,
       replaceHistoryStateOnLocationChange: true,
       replaceDocumentTitle: true,
-      disableCache: false
+      disableCache: true
     },
     theme: {
       logoSrc: '',
@@ -24,8 +24,8 @@ beforeEach(() => {
 })
 
 function renderRhodium(rootElementId?: string, relativePath?: string): HTMLIFrameElement {
-  rh24.render()
-  return document.getElementById('rh24-iframe') as HTMLIFrameElement
+  const iframeEl = rh24.render(rootElementId, relativePath)
+  return iframeEl
 }
 
 test('sdk should be initialized', () => {
@@ -48,4 +48,18 @@ test('should render at body tag if rootElementId is null', () => {
 
   expect(iframe).not.toBeNull()
   expect(iframe.sandbox).toBe('allow-top-navigation allow-scripts allow-same-origin allow-forms')
+})
+
+test('should append random v parameter with & if other query strings are present', () => {
+  const iframe = renderRhodium('app', '/path?query=123&another=456')
+
+  expect(iframe).not.toBeNull()
+  expect(iframe.src).toMatch(/&v=[d]*/)
+})
+
+test('should append random v parameter with ? if no query strings are present in the url', () => {
+  const iframe = renderRhodium('app', '/path')
+
+  expect(iframe).not.toBeNull()
+  expect(iframe.src).toMatch(/\?v=[d]*/)
 })

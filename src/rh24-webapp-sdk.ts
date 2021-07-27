@@ -31,12 +31,11 @@ export class Rh24WebApp {
 
     const iframe = document.createElement('iframe')
 
-    let iframeSrc = `${this._config.rh24BaseUrl.replace(/\'/g, '')}/app/${
-      relativePath.startsWith('/') ? relativePath.slice(1) : relativePath
-    }`
+    let iframeSrc = `${this._config.rh24BaseUrl.replace(/\'/g, '')}/app/${relativePath.startsWith('/') ? relativePath.slice(1) : relativePath
+      }`
 
     if (this._config.options?.disableCache) {
-      iframeSrc += `?v=${Math.random()}`
+      iframeSrc += `${iframeSrc.indexOf('?') > -1 ? '&' : '?'}v=${Math.random()}`
       iframeSrc = iframeSrc.replace('/?', '?')
     }
 
@@ -58,6 +57,8 @@ export class Rh24WebApp {
     iframe.onload = this.handleOnLoad
 
     this._container = iframe
+
+    return iframe
   }
 
   private handleMessages(ev: MessageEvent<any>) {
