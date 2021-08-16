@@ -47,7 +47,7 @@ export class Rh24WebApp {
     iframe.setAttribute('data-testid', 'rh24-iframe')
 
     // @ts-ignore
-    iframe.sandbox = 'allow-top-navigation allow-scripts allow-same-origin allow-forms'
+    iframe.sandbox = 'allow-top-navigation allow-scripts allow-same-origin allow-forms allow-modals'
 
     element.style.overflowY = 'hidden'
 
