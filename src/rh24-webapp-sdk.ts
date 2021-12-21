@@ -15,6 +15,10 @@ export class Rh24WebApp {
       throw new Error('[rh24-embedded] partyId should not be null or empty')
     }
 
+    if (!this._config.rh24BaseUrl) {
+      throw new Error('[rh24-embedded] rh24BaseUrl should not be null or empty')
+    }
+
     let element
 
     if (rootElementId) {
@@ -31,8 +35,9 @@ export class Rh24WebApp {
 
     const iframe = document.createElement('iframe')
 
-    let iframeSrc = `${this._config.rh24BaseUrl.replace(/\'/g, '')}/app/${relativePath.startsWith('/') ? relativePath.slice(1) : relativePath
-      }`
+    let iframeSrc = `${this._config.rh24BaseUrl.replace(/\'/g, '')}/app/${
+      relativePath.startsWith('/') ? relativePath.slice(1) : relativePath
+    }`
 
     if (this._config.options?.disableCache) {
       iframeSrc += `${iframeSrc.indexOf('?') > -1 ? '&' : '?'}v=${Math.random()}`
@@ -47,7 +52,8 @@ export class Rh24WebApp {
     iframe.setAttribute('data-testid', 'rh24-iframe')
 
     // @ts-ignore
-    iframe.sandbox = 'allow-top-navigation allow-scripts allow-same-origin allow-forms allow-modals'
+    iframe.sandbox =
+      'allow-top-navigation allow-scripts allow-same-origin allow-forms allow-modals allow-top-navigation-by-user-activation'
 
     element.style.overflowY = 'hidden'
 
