@@ -109,7 +109,7 @@ const rh24 = new rh24Sdk.Rh24WebApp({
             }
         })
 
-        rh24.render('rh24-container', '/projects');
+        rh24.render('rh24-container', window.location.hash.slice(1));
 
 ```
 
