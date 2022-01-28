@@ -53,7 +53,7 @@ export class Rh24WebApp {
 
     // @ts-ignore
     iframe.sandbox =
-      'allow-top-navigation allow-scripts allow-same-origin allow-forms allow-modals allow-top-navigation-by-user-activation'
+      'allow-top-navigation allow-scripts allow-same-origin allow-forms allow-modals allow-top-navigation-by-user-activation allow-downloads'
 
     element.style.overflowY = 'hidden'
 
