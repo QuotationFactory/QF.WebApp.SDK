@@ -40,14 +40,18 @@ test('after call render, the iframe should be visible with the right sandbox', (
   const iframe = renderRhodium('app', '/projects')
 
   expect(iframe).not.toBeNull()
-  expect(iframe.sandbox).toBe('allow-top-navigation allow-scripts allow-same-origin allow-forms allow-modals')
+  expect(iframe.sandbox).toBe(
+    'allow-top-navigation allow-scripts allow-same-origin allow-forms allow-modals allow-top-navigation-by-user-activation allow-downloads'
+  )
 })
 
 test('should render at body tag if rootElementId is null', () => {
   const iframe = renderRhodium()
 
   expect(iframe).not.toBeNull()
-  expect(iframe.sandbox).toBe('allow-top-navigation allow-scripts allow-same-origin allow-forms allow-modals')
+  expect(iframe.sandbox).toBe(
+    'allow-top-navigation allow-scripts allow-same-origin allow-forms allow-modals allow-top-navigation-by-user-activation allow-downloads'
+  )
 })
 
 test('should append random v parameter with & if other query strings are present', () => {
