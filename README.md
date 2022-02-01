@@ -2,7 +2,7 @@
 <br />
 <p align="center">
   <a href="https://github.com/Rhodium24/rh24-webapp-sdk">
-    <img src="https://www.metal-heaven.com/wp-content/uploads/2019/09/logo_rhodium24_wit-2-1000x234.png" alt="Logo" height="80">
+    <img src="https://www.quotationfactory.com/wp-content/uploads/2022/01/rh24.png" alt="Logo">
   </a>
 
   <h3 align="center">Rhodium24 - WebApp - SDK</h3>
@@ -11,7 +11,7 @@
     Smart metal calculations, direct quotation and CAM downloads in your company website.
     <br />
     <br />
-    <a href="https://metal-heaven.com/integration">View Demo</a>
+    <a href="https://www.quotationfactory/rh24-portal">View Demo</a>
     ·
     <a href="https://github.com/Rhodium24/rh24-webapp-sdk/issues">Report Bug</a>
     ·
@@ -273,7 +273,7 @@ See the [open issues](https://github.com/Rhodium24/rh24-webapp-sdk/issues) for a
 
 ## Contact
 
-- [Metal Heaven](https://metal-heaven.com)
-- [info@metal-heaven.com](info@metal-heaven.com)
+- [Quotation Factory](https://quotationfactory.com)
+- [info@quotationfactory.com](info@quotationfactory.com)
 
 Project Link: [https://github.com/Rhodium24/rh24-webapp-sdk/](https://github.com/Rhodium24/rh24-webapp-sdk)
