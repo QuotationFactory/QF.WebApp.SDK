@@ -19,7 +19,8 @@ beforeEach(() => {
         primary: { main: '#00ff00' },
         secondary: { main: '#ff0000' }
       }
-    }
+    },
+    landingPageUrl: 'https://unit-test.rhodium24.io/landing-page'
   })
 })
 

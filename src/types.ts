@@ -59,14 +59,45 @@ declare module '@material-ui/core/styles/createMuiTheme' {
 }
 
 export type Rh24ApplicationConfig = {
+  /** organization id provided by QuotationFactory */
   partyId: string
+  /** the Rhodium24 base URL (ie https://rhodium24.io) */
   rh24BaseUrl: string
   options?: {
+    /** marginTop in pixels (used to calculate the height of Rhodium24 iFrame) */
     marginTop?: string
+    /** hook location changes events, giving the oportunity to proper update the browser URL */
     onLocationChange?: (relativePath: string) => void
+    /** if true, the parent window URL will be automatically updated */
     replaceHistoryStateOnLocationChange?: boolean
+    /** if true, the document titile will be updated with Rhodium24 context */
     replaceDocumentTitle?: boolean
+    /** if true, no random query string will be sent, potentially enabling caching of the applications (app updates may not be available to user unless clear caching, close browser, etc) */
     disableCache?: boolean
   }
   theme?: ThemeOptions
+  /**
+   * this page will act as your portal landing page. It should implement the following:
+   * - a button to redirect to /login app page
+   * - a button to redirect to /signup app page
+   *
+   * those buttons should call post a message to the iframe with the following payload:
+   * {
+   *  type: 'RH24_Change_Location',
+   *  relativeUrl: '/login' | '/signup'
+   * }
+   * @example:
+   *   <button onClick={"rh24RedirectMessage('/login')"}>Login</button>
+   *   <button onClick={"rh24RedirectMessage('/signup')"}>Signup</button>
+   *   <script>
+   *     function rh24RedirectMessage(path) {
+   *         window.parent?.postMessage({
+   *             type: 'RH24_Change_Location',
+   *             relativePath: path
+   *         }, 'https://local.rhodium24.io:3000')
+   *     }
+   *   </script>
+   *
+   */
+  landingPageUrl?: string
 }

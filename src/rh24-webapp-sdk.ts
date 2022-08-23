@@ -99,9 +99,10 @@ export class Rh24WebApp {
     setTimeout(() => {
       this._container?.contentWindow?.postMessage(
         {
+          type: 'RH24_EMBEDDED_SETUP',
           partyId: this._config?.partyId,
           theme: { ...(this._config?.theme || {}) },
-          type: 'RH24_EMBEDDED_SETUP'
+          landingPageUrl: this._config?.landingPageUrl
         },
         this._config.rh24BaseUrl
       )
