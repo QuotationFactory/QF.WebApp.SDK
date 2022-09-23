@@ -10,8 +10,7 @@ beforeEach(() => {
       marginTop: '0em',
       onLocationChange: (relativeLocation = '') => null,
       replaceHistoryStateOnLocationChange: true,
-      replaceDocumentTitle: true,
-      disableCache: true
+      replaceDocumentTitle: true
     },
     theme: {
       logoSrc: '',
@@ -67,4 +66,31 @@ test('should append random v parameter with ? if no query strings are present in
 
   expect(iframe).not.toBeNull()
   expect(iframe.src).toMatch(/\?v=[d]*/)
+})
+
+test('should not append random v parameter if enable cache is true', () => {
+  rh24 = new Rh24WebApp({
+    partyId: 'test-party',
+    rh24BaseUrl: 'https://unit-test.rhodium24.io',
+    options: {
+      marginTop: '0em',
+      onLocationChange: (relativeLocation = '') => null,
+      replaceHistoryStateOnLocationChange: true,
+      replaceDocumentTitle: true,
+      enableCache: true
+    },
+    theme: {
+      logoSrc: '',
+      palette: {
+        primary: { main: '#00ff00' },
+        secondary: { main: '#ff0000' }
+      }
+    },
+    landingPageUrl: 'https://unit-test.rhodium24.io/landing-page'
+  })
+
+  const iframe = rh24.render('app', '/path')
+
+  expect(iframe).not.toBeNull()
+  expect(iframe.src).not.toMatch(/\?v=[d]*/)
 })

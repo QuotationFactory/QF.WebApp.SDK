@@ -14,7 +14,6 @@ function App() {
         replaceHistoryStateOnLocationChange: true,
         onLocationChange: () => { },
         replaceDocumentTitle: true,
-        disableCache: true
       },
       theme: {
         logoSrc: process.env.REACT_APP_RH24_LOGO_SRC || '',
