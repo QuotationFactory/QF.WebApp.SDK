@@ -45,7 +45,7 @@ export class Rh24WebApp {
 
       console.info('cache disabled', iframeSrc)
     }
-    
+
     iframe.src = iframeSrc
     iframe.id = 'rh24-iframe'
     iframe.style.width = '100%'
