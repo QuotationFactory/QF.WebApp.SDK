@@ -39,11 +39,13 @@ export class Rh24WebApp {
       relativePath.startsWith('/') ? relativePath.slice(1) : relativePath
     }`
 
-    if (this._config.options?.disableCache) {
+    if (!this._config.options?.enableCache) {
       iframeSrc += `${iframeSrc.indexOf('?') > -1 ? '&' : '?'}v=${Math.random()}`
       iframeSrc = iframeSrc.replace('/?', '?')
-    }
 
+      console.info('cache disabled', iframeSrc)
+    }
+    
     iframe.src = iframeSrc
     iframe.id = 'rh24-iframe'
     iframe.style.width = '100%'

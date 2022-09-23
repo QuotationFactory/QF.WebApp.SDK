@@ -27,6 +27,7 @@ declare module '@material-ui/core/styles/createMuiTheme' {
       mixBlendMode: CSSProperties['mixBlendMode']
     }
     googleFonts?: string
+    callForActionColor?: string
   }
 
   /**
@@ -72,8 +73,15 @@ export type Rh24ApplicationConfig = {
     replaceHistoryStateOnLocationChange?: boolean
     /** if true, the document titile will be updated with Rhodium24 context */
     replaceDocumentTitle?: boolean
-    /** if true, no random query string will be sent, potentially enabling caching of the applications (app updates may not be available to user unless clear caching, close browser, etc) */
+    /** @deprecated 
+     * by default a random number is added to the iframe src to avoid caching issues.
+     * use the option enableCache to disable this behavior
+     * if true, a random query string will be sent, disabling the browser cache */
     disableCache?: boolean
+    /**
+     * if true, no random query string will be appended to the iframe src, enabling the browser cache by URL
+     */
+    enableCache?: boolean
   }
   theme?: ThemeOptions
   /**
