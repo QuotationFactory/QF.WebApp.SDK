@@ -1,3 +1,7 @@
+/**
+ * @jest-environment jsdom
+ */
+
 import { Rh24WebApp } from '../rh24-webapp-sdk'
 
 let rh24: Rh24WebApp
@@ -41,7 +45,7 @@ test('after call render, the iframe should be visible with the right sandbox', (
 
   expect(iframe).not.toBeNull()
   expect(iframe.sandbox).toBe(
-    'allow-top-navigation allow-scripts allow-same-origin allow-forms allow-modals allow-top-navigation-by-user-activation allow-downloads'
+    'allow-top-navigation allow-scripts allow-same-origin allow-forms allow-modals allow-top-navigation-by-user-activation allow-downloads allow-popups allow-popups-to-escape-sandbox'
   )
 })
 
@@ -50,7 +54,7 @@ test('should render at body tag if rootElementId is null', () => {
 
   expect(iframe).not.toBeNull()
   expect(iframe.sandbox).toBe(
-    'allow-top-navigation allow-scripts allow-same-origin allow-forms allow-modals allow-top-navigation-by-user-activation allow-downloads'
+    'allow-top-navigation allow-scripts allow-same-origin allow-forms allow-modals allow-top-navigation-by-user-activation allow-downloads allow-popups allow-popups-to-escape-sandbox'
   )
 })
 
