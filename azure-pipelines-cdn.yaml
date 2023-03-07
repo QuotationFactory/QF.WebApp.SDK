@@ -16,7 +16,7 @@ stages:
         steps:
           - task: NodeTool@0
             inputs:
-              versionSpec: '10.x'
+              versionSpec: '19.x'
             displayName: 'install node'
           - script: |
               npm install && npm run build && ls dist
