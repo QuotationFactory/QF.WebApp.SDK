@@ -8,8 +8,8 @@ declare global {
   }
 }
 
-declare module '@material-ui/core/styles/createMuiTheme' {
-  /**
+declare module '@material-ui/core/styles/createTheme' {
+  /*
    *  options applied to the left side menu in the Project Page
    */
   interface VerticalMenu {
