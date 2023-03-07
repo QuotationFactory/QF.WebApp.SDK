@@ -1,3 +1,7 @@
+/**
+ * @jest-environment jsdom
+ */
+
 import { Rh24WebApp } from '../rh24-webapp-sdk'
 
 let rh24: Rh24WebApp
