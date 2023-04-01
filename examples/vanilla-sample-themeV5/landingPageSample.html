@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sample Portal</title>
+    <style>
+      .code-sample {
+        border: 1px solid #ccc;
+        padding: 10px;
+        margin: 10px;
+        width: fit-content;
+      }
+    </style>
+  </head>
+
+  <body data-test-id="portal-custom-landing-page">
+    <h1>Sample Portal Landing Page</h1>
+    <p>This is a sample landing page for the portal.</p>
+    <button onclick="rh24RedirectMessage('/login')">login</button>
+    <button onclick="rh24RedirectMessage('/signup')">register</button>
+
+    <pre class="code-sample">
+&lt;button onclick="rh24RedirectMessage('/login')"&gt;
+    login
+&lt;/button&gt;
+&lt;button onclick="rh24RedirectMessage('/signup')"&gt;
+    register
+&lt;/button&gt;
+&lt;script&gt;
+    function rh24RedirectMessage(path) {
+        window.parent?.postMessage({
+            type: 'RH24_Change_Location',
+            relativeUrl: path
+        }, '{rhodium24-base-url}')
+    }
+&lt;/script&gt;
+    </pre>
+
+    <script>
+      function rh24RedirectMessage(path) {
+        window.parent?.postMessage(
+          {
+            type: 'RH24_Change_Location',
+            relativeUrl: path
+          },
+          'https://local.rhodium24.io:3000'
+        )
+      }
+    </script>
+  </body>
+</html>

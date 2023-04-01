@@ -1,6 +1,9 @@
-import { ThemeOptions } from '@material-ui/core/styles'
-import { CSSProperties } from '@material-ui/core/styles/withStyles'
+// import { ThemeOptions } from '@material-ui/core/styles'
+import { ThemeOptions } from '@mui/material'
 import { Rh24WebApp } from './rh24-webapp-sdk'
+import { DeprecatedThemeOptions } from '@mui/material/styles';
+
+type MixBlendMode = 'normal' | 'multiply' | 'screen' | 'overlay' | 'darken' | 'lighten' | 'color-dodge' | 'color-burn' | 'hard-light' | 'soft-light' | 'difference' | 'exclusion' | 'hue' | 'saturation' | 'color' | 'luminosity';
 
 declare global {
   interface Window {
@@ -8,54 +11,92 @@ declare global {
   }
 }
 
-declare module '@material-ui/core/styles/createTheme' {
+declare module '@mui/material' {
   /*
    *  options applied to the left side menu in the Project Page
    */
   interface VerticalMenu {
     backgroundColor?: string
     color?: string
+    boxShadow?: string
+  }
+
+  interface IconColors {
+    outline?: string
+    highlight?: string
+    white?: string
   }
 
   /**
-   *  enhanced Material-UI Theme object with customizations options
+   *  enhanced Material-UI Theme object V5 with customizations options
    */
   interface Theme {
-    logoSrc: string
+    logoSrc?: string
     verticalMenu?: VerticalMenu
     BoMThumbnail: {
-      mixBlendMode: CSSProperties['mixBlendMode']
+      mixBlendMode: MixBlendMode
     }
     googleFonts?: string
-    callForActionColor?: string
+    backgroundImageSrc?: string
+    iconColors?: IconColors
   }
 
   /**
-   * enhanced Material-UI ThemeOptions object
+   * enhanced Material-UI ThemeOptions V4 object
    * @see https://material-ui.com/customization/theming/
    */
-  interface ThemeOptions {
+  interface DeprecatedThemeOptions {
     /**
-     * your company logo uri.
-     */
-    logoSrc: string
+    * your company logo uri.
+    */
+    logoSrc?: string
     /**
      * Project page's vertical menu options
      */
     verticalMenu?: VerticalMenu
     /**
      * Apply mixBlendMode css prop to each part / assembly thumbnail in project page.
-     * can be useful for light designs to hide the images background
      */
     BoMThumbnail?: {
-      mixBlendMode: CSSProperties['mixBlendMode']
+      mixBlendMode: MixBlendMode
     }
     /**
      * Comma separated font family names that needs to be imported from googleFonts.
-     *
-     * @example: https://fonts.googleapis.com/css2?family=<fontFamily>&display=swap
+     * @example: Roboto, Open Sans
      */
     googleFonts?: string
+    backgroundImageSrc?: string
+    iconColors?: IconColors
+  }
+
+  interface ThemeOptions {
+    /**
+     * your company logo uri.
+     */
+    logoSrc?: string
+    /**
+     * Project page's vertical menu options
+     */
+    verticalMenu?: VerticalMenu
+    /**
+     * Apply mixBlendMode css prop to each part / assembly thumbnail in project page.
+     */
+    BoMThumbnail?: {
+      mixBlendMode: MixBlendMode
+    }
+    /**
+     * Comma separated font family names that needs to be imported from googleFonts.
+     * @example: Roboto, Open Sans
+    */
+    googleFonts?: string
+    /**
+     * Background image uri
+     */
+    backgroundImageSrc?: string
+    /**
+     * Icon colors 
+     */
+    iconColors?: IconColors
   }
 }
 
@@ -85,7 +126,18 @@ export type Rh24ApplicationConfig = {
      */
     enableCache?: boolean
   }
-  theme?: ThemeOptions
+  /**
+   * @deprecated use themeV5 instead.
+   * @see https://mui.com/customization/theming/
+   * @see https://mui.com/material-ui/migration/v5-style-changes/
+   */
+  theme?: DeprecatedThemeOptions
+
+  /**
+   * Theme options for Material-UI V5
+   * @see https://mui.com/customization/theming/
+   */
+  themeV5?: ThemeOptions
   /**
    * this page will act as your portal landing page. It should implement the following:
    * - a button to redirect to /login app page

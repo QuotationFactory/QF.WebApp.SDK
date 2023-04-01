@@ -35,10 +35,7 @@ export class Rh24WebApp {
 
     const iframe = document.createElement('iframe')
 
-    let iframeSrc = `${this._config.rh24BaseUrl.replace(/\'/g, '')}/app/${
-      relativePath.startsWith('/') ? relativePath.slice(1) : relativePath
-    }`
-
+    let iframeSrc = `${this._config.rh24BaseUrl.replace(/\'/g, '')}/app/${relativePath.startsWith('/') ? relativePath.slice(1) : relativePath}`
     if (!this._config.options?.enableCache) {
       iframeSrc += `${iframeSrc.indexOf('?') > -1 ? '&' : '?'}v=${Math.random()}`
       iframeSrc = iframeSrc.replace('/?', '?')
@@ -98,16 +95,16 @@ export class Rh24WebApp {
   }
 
   private handleOnLoad() {
-    setTimeout(() => {
-      this._container?.contentWindow?.postMessage(
-        {
-          type: 'RH24_EMBEDDED_SETUP',
-          partyId: this._config?.partyId,
-          theme: { ...(this._config?.theme || {}) },
-          landingPageUrl: this._config?.landingPageUrl
-        },
-        this._config.rh24BaseUrl
-      )
-    })
+    const message = {
+      type: 'RH24_EMBEDDED_SETUP',
+      partyId: this._config?.partyId,
+      theme: { ...(this._config?.theme || {}) },
+      themeV5: { ...(this._config?.themeV5 || {}) },
+      landingPageUrl: this._config?.landingPageUrl
+    }
+    this._container?.contentWindow?.postMessage(
+      message,
+      this._config.rh24BaseUrl
+    )
   }
 }

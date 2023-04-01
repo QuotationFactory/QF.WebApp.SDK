@@ -8,7 +8,7 @@
   "main": "dist/rh24-webapp-sdk.js",
   "typings": "dist/rh24-webapp-sdk.d.ts",
   "scripts": {
-    "build": "webpack --mode production",
+    "build": "npx webpack --mode production",
     "format": "prettier --write \"src/**/*.ts\"",
     "lint": "tslint -p tsconfig.json",
     "test": "jest --config jest.json",
@@ -33,7 +33,7 @@
   "author": "Metal Heaven - B.V <info@metal-heaven.com> (https://metal-heaven.com)",
   "license": "",
   "devDependencies": {
-    "@material-ui/core": "^4.11.3",
+    "@mui/material": "^5.0.6",
     "@types/jest": "^29.4.0",
     "clean-webpack-plugin": "^4.0.0",
     "dotenv-webpack": "^8.0.1",
