@@ -38,6 +38,8 @@ stages:
               steps:
                 - download: current
                   artifact: dist
+                - script: |
+                    ls $(Pipeline.Workspace)/dist
                 - task: AzureFileCopy@5
                   inputs:
                     SourcePath: "$(Pipeline.Workspace)/dist"
