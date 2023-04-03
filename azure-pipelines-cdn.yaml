@@ -63,7 +63,7 @@ stages:
               steps:
                 - download: current
                   artifact: dist
-                - task: AzureFileCopy@3
+                - task: AzureFileCopy@5
                   displayName: 'Copy to UAT'
                   inputs:
                     SourcePath: '$(System.DefaultWorkingDirectory)\\dist'
@@ -87,7 +87,7 @@ stages:
               steps:
                 - download: current
                   artifact: dist
-                - task: AzureFileCopy@3
+                - task: AzureFileCopy@5
                   displayName: 'copy to prd'
                   inputs:
                     SourcePath: '$(System.DefaultWorkingDirectory)\\dist'
