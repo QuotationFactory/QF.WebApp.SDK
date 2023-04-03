@@ -39,10 +39,10 @@ stages:
                 - download: current
                   artifact: dist
                 - script: |
-                    ls $(Pipeline.Workspace)/dist
+                    ls $(Pipeline.Workspace)\dist
                 - task: AzureFileCopy@5
                   inputs:
-                    SourcePath: "$(Pipeline.Workspace)/dist"
+                    SourcePath: '$(Pipeline.Workspace)\\dist'
                     azureSubscription: $(AzureSubscription_dev)
                     Destination: 'AzureBlob'
                     storage: $(StorageAccountName_dev)
@@ -66,7 +66,7 @@ stages:
                 - task: AzureFileCopy@3
                   displayName: 'Copy to UAT'
                   inputs:
-                    SourcePath: '$(System.DefaultWorkingDirectory)/dist'
+                    SourcePath: '$(System.DefaultWorkingDirectory)\\dist'
                     azureSubscription: $(AzureSubscription_uat)
                     Destination: 'AzureBlob'
                     storage: $(StorageAccountName_uat)
@@ -90,7 +90,7 @@ stages:
                 - task: AzureFileCopy@3
                   displayName: 'copy to prd'
                   inputs:
-                    SourcePath: '$(System.DefaultWorkingDirectory)/dist'
+                    SourcePath: '$(System.DefaultWorkingDirectory)\\dist'
                     azureSubscription: $(AzureSubscription_prd)
                     Destination: 'AzureBlob'
                     storage: $(StorageAccountName_prd)
