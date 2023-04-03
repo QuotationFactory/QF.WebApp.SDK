@@ -6,23 +6,29 @@ trigger:
 pr: none
 
 stages:
-  - stage: 'build_and_deploy_to_cdn'
-    displayName: 'BuildAndCopy'
+  - stage: 'build'
+    displayName: 'build to dist'
     pool:
-      vmImage: 'windows-latest'
+      vmImage: 'ubuntu-latest'
     jobs:
       - job: 'Build'
         displayName: 'Build'
         steps:
           - task: NodeTool@0
             inputs:
-              versionSpec: '19.x'
+              versionSpec: '18.x'
             displayName: 'install node'
           - script: |
               npm install && npm run build && ls dist
             displayName: 'Build'
           - publish: $(System.DefaultWorkingDirectory)/dist
             artifact: dist
+  - stage: 'dev'
+    pool:
+      vmImage: 'windows-latest'
+    displayName: 'deploy to dev'
+    dependsOn: 'build'
+    jobs:
       - deployment: deploy_dev
         displayName: deploy dev
         environment: dev
@@ -40,6 +46,12 @@ stages:
                     storage: $(StorageAccountName_dev)
                     ContainerName: '$web'
                     BlobPrefix: 'sdk'
+  - stage: 'uat'
+    pool:
+      vmImage: 'windows-latest'
+    displayName: 'deploy to uat'
+    dependsOn: 'build'
+    jobs:
       - deployment: deploy_uat
         displayName: deploy uat
         environment: uat
@@ -58,6 +70,12 @@ stages:
                     storage: $(StorageAccountName_uat)
                     ContainerName: '$web'
                     BlobPrefix: 'sdk'
+  - stage: 'prd'
+    pool:
+      vmImage: 'windows-latest'
+    displayName: 'deploy to prd'
+    dependsOn: 'build'
+    jobs:
       - deployment: deploy_prd
         displayName: deploy prd
         environment: prd
