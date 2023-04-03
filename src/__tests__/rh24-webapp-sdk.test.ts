@@ -12,7 +12,7 @@ beforeEach(() => {
     rh24BaseUrl: 'https://unit-test.rhodium24.io',
     options: {
       marginTop: '0em',
-      onLocationChange: (relativeLocation = '') => null,
+      onLocationChange: () => null,
       replaceHistoryStateOnLocationChange: true,
       replaceDocumentTitle: true
     },
@@ -78,7 +78,7 @@ test('should not append random v parameter if enable cache is true', () => {
     rh24BaseUrl: 'https://unit-test.rhodium24.io',
     options: {
       marginTop: '0em',
-      onLocationChange: (relativeLocation = '') => null,
+      onLocationChange: () => null,
       replaceHistoryStateOnLocationChange: true,
       replaceDocumentTitle: true,
       enableCache: true

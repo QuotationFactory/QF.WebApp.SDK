@@ -1,9 +1,25 @@
 // import { ThemeOptions } from '@material-ui/core/styles'
 import { ThemeOptions } from '@mui/material'
 import { Rh24WebApp } from './rh24-webapp-sdk'
-import { DeprecatedThemeOptions } from '@mui/material/styles';
+import { DeprecatedThemeOptions } from '@mui/material/styles'
 
-type MixBlendMode = 'normal' | 'multiply' | 'screen' | 'overlay' | 'darken' | 'lighten' | 'color-dodge' | 'color-burn' | 'hard-light' | 'soft-light' | 'difference' | 'exclusion' | 'hue' | 'saturation' | 'color' | 'luminosity';
+type MixBlendMode =
+  | 'normal'
+  | 'multiply'
+  | 'screen'
+  | 'overlay'
+  | 'darken'
+  | 'lighten'
+  | 'color-dodge'
+  | 'color-burn'
+  | 'hard-light'
+  | 'soft-light'
+  | 'difference'
+  | 'exclusion'
+  | 'hue'
+  | 'saturation'
+  | 'color'
+  | 'luminosity'
 
 declare global {
   interface Window {
@@ -47,8 +63,8 @@ declare module '@mui/material' {
    */
   interface DeprecatedThemeOptions {
     /**
-    * your company logo uri.
-    */
+     * your company logo uri.
+     */
     logoSrc?: string
     /**
      * Project page's vertical menu options
@@ -87,14 +103,14 @@ declare module '@mui/material' {
     /**
      * Comma separated font family names that needs to be imported from googleFonts.
      * @example: Roboto, Open Sans
-    */
+     */
     googleFonts?: string
     /**
      * Background image uri
      */
     backgroundImageSrc?: string
     /**
-     * Icon colors 
+     * Icon colors
      */
     iconColors?: IconColors
   }
