@@ -1,0 +1,6 @@
+{
+    "partyId": "<partyId>",
+    "baseUrl": "<rhodium24 base url>",
+    "logoSrc": "<logo img src>",
+    "landingPageUrl": "http://127.0.0.1:8080/examples/vanilla-sample/landingPageSample.html"
+}

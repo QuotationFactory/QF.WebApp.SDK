@@ -1,5 +1,19 @@
 import { Rh24ApplicationConfig } from './types'
 
+type LocationChangeEvent = {
+  type: 'RH24_EMBEDDED_LOCATION_CHANGE'
+  payload: {
+    pathname: string
+  }
+}
+
+type DocumentTitleChange = {
+  type: 'RH24_EMBEDDED_DOCUMENT_TITLE'
+  payload: string
+}
+
+type Rh24EmbeddedMessage = LocationChangeEvent | DocumentTitleChange
+
 export class Rh24WebApp {
   private _config: Rh24ApplicationConfig
   private _container?: HTMLIFrameElement = undefined
@@ -10,7 +24,7 @@ export class Rh24WebApp {
     this.handleOnLoad = this.handleOnLoad.bind(this)
   }
 
-  public render(rootElementId?: string, relativePath: string = '/projects') {
+  public render(rootElementId?: string, relativePath = '/projects') {
     if (!this._config.partyId) {
       throw new Error('[rh24-embedded] partyId should not be null or empty')
     }
@@ -35,10 +49,9 @@ export class Rh24WebApp {
 
     const iframe = document.createElement('iframe')
 
-    let iframeSrc = `${this._config.rh24BaseUrl.replace(/\'/g, '')}/app/${
+    let iframeSrc = `${this._config.rh24BaseUrl.replace(/'/g, '')}/app/${
       relativePath.startsWith('/') ? relativePath.slice(1) : relativePath
     }`
-
     if (!this._config.options?.enableCache) {
       iframeSrc += `${iframeSrc.indexOf('?') > -1 ? '&' : '?'}v=${Math.random()}`
       iframeSrc = iframeSrc.replace('/?', '?')
@@ -53,6 +66,7 @@ export class Rh24WebApp {
     iframe.style.border = 'none'
     iframe.setAttribute('data-testid', 'rh24-iframe')
 
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     iframe.sandbox =
       'allow-top-navigation allow-scripts allow-same-origin allow-forms allow-modals allow-top-navigation-by-user-activation allow-downloads allow-popups allow-popups-to-escape-sandbox'
@@ -69,7 +83,7 @@ export class Rh24WebApp {
     return iframe
   }
 
-  private handleMessages(ev: MessageEvent<any>) {
+  private handleMessages(ev: MessageEvent<Rh24EmbeddedMessage>) {
     if (ev.origin !== this._config.rh24BaseUrl) {
       return
     }
@@ -98,16 +112,13 @@ export class Rh24WebApp {
   }
 
   private handleOnLoad() {
-    setTimeout(() => {
-      this._container?.contentWindow?.postMessage(
-        {
-          type: 'RH24_EMBEDDED_SETUP',
-          partyId: this._config?.partyId,
-          theme: { ...(this._config?.theme || {}) },
-          landingPageUrl: this._config?.landingPageUrl
-        },
-        this._config.rh24BaseUrl
-      )
-    })
+    const message = {
+      type: 'RH24_EMBEDDED_SETUP',
+      partyId: this._config?.partyId,
+      theme: { ...(this._config?.theme || {}) },
+      themeV5: { ...(this._config?.themeV5 || {}) },
+      landingPageUrl: this._config?.landingPageUrl
+    }
+    this._container?.contentWindow?.postMessage(message, this._config.rh24BaseUrl)
   }
 }

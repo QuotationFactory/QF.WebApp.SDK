@@ -1,6 +1,6 @@
 {
   "name": "@metal-heaven/rh24-webapp-sdk",
-  "version": "1.1.7",
+  "version": "2.0.0-rc1",
   "description": "Rh24 webapp integration library",
   "files": [
     "dist/**/*"
@@ -8,9 +8,9 @@
   "main": "dist/rh24-webapp-sdk.js",
   "typings": "dist/rh24-webapp-sdk.d.ts",
   "scripts": {
-    "build": "webpack --mode production",
-    "format": "prettier --write \"src/**/*.ts\"",
-    "lint": "tslint -p tsconfig.json",
+    "build": "npx webpack --mode production",
+    "format": "npx prettier --write \"src/**/*.ts\"",
+    "lint": "npx eslint -c .eslintrc.js \"src/**/*.ts\" --fix",
     "test": "jest --config jest.json",
     "watch-build": "tsc --watch",
     "watch-test": "jest --watch --config jest.json",
@@ -33,10 +33,13 @@
   "author": "Metal Heaven - B.V <info@metal-heaven.com> (https://metal-heaven.com)",
   "license": "",
   "devDependencies": {
-    "@material-ui/core": "^4.11.3",
+    "@mui/material": "^5.0.6",
     "@types/jest": "^29.4.0",
+    "@typescript-eslint/eslint-plugin": "^5.57.0",
+    "@typescript-eslint/parser": "^5.57.0",
     "clean-webpack-plugin": "^4.0.0",
     "dotenv-webpack": "^8.0.1",
+    "eslint": "^8.37.0",
     "jest": "^29.5.0",
     "jest-environment-jsdom": "^29.5.0",
     "jest-webpack": "^0.5.1",

@@ -34,7 +34,7 @@
                 <a href="#options">Options</a>
             </li>
             <li>
-                <a href="#theme">Theme</a>
+                <a href="#themev5">Theme</a>
             </li>
             <li>
                 <a href="#advanced">Advanced</a>
@@ -123,20 +123,47 @@ The options object comes with some handy flags to control what the sdk will do f
 - `replaceDocumentTitle`: If `true` will change the `document.title` to be in sync with Rhodium24 context
 - `disableCache`: If `true` will add a dummy querystring (`?v=Math.random()`) to iframe src in order to not get a cached result.
 
-## Theme
+## ThemeV5
+Rhodium24 uses the @mui/material for UI components and theme support. To be able to customize the look and feel of the website, refer to [official documentation](https://mui.com/material-ui/customization/theming).
 
-Rhodium24 uses the React-MaterialUI library, allowing the use of `ThemeOptions` to customize many aspects of the user interface. Please refer to a sample implmentation of this mechanism in the examples folder. Some common customization could be the following.
-
-if you'd like to see all the default material-ui properties that can be changed, please check [material-ui's default theme](https://material-ui.com/customization/default-theme/).
-
-Needs inspiration? checkout the [material theme creator](https://bareynol.github.io/mui-theme-creator/)
+To use the new version, you should set the themeV5 property like this
+```javascript
+    themeV5: {
+      logoSrc: <your logo url>,
+      typography: {
+        fontFamily: "'Poppins', sans-serif",
+        button: {
+          textTransform: 'lowercase'
+        }
+      },
+      components: {
+        MuiCssBaseline: {
+          styleOverrides: {
+            '@global': {
+              body: {
+                backgroundImage: 'none',
+              },
+            },
+          },
+        },
+        MuiAppBar: {
+          styleOverrides: {
+            colorPrimary: {
+              backgroundColor: '#24344d',
+              boxShadow: '0px 0 2px 0 #a8a7a6',
+            },
+          },
+        },
+      }
+    }
+```
 
 ### Changing the background
 
 To override <body> styling properties progress with the following:
 
 ```javascript
-  theme: {
+  themeV5: {
       overrides: {
         '@global': {
           backgroundImage: 'none',
@@ -152,27 +179,33 @@ To override <body> styling properties progress with the following:
 You can define many aspect of the color palette for the web site
 
 ```javascript
-theme: {
-  palette: {
+themeV5: {
+ palette: {
+    mode: 'dark',
     primary: {
-      main: 'blue'
-    }
+      main: '#5893df',
+    },
     secondary: {
-      main: 'green'
-    }
+      main: '#2ec5d3',
+    },
+    background: {
+      default: '#192231',
+      paper: '#24344d',
+    },
     error: {
-      main: 'red'
-    }
+      main: '#f44337',
+    },
     warning: {
-      main: 'yellow'
-    }
+      main: '#ffa727',
+    },
     info: {
-      main: 'cyan'
-    }
+      main: '#29b6f7',
+    },
     success: {
-      main: '#4caf50'
-    }
-  }
+      main: '#66bb6b',
+    },
+    divider: 'rgba(255,255,255,0.13)',
+  },
 }
 ```
 
@@ -181,7 +214,7 @@ theme: {
 If the host page already import the necessary fonts, you can set the the fontFamily like this
 
 ```javascript
-   theme: {
+   themeV5: {
      typography: {
        fontFamily: "'Poppins', sans-serif",
      }
@@ -191,7 +224,7 @@ If the host page already import the necessary fonts, you can set the the fontFam
 But, if the host page don't import the necessary fonts, you should also inform the fontFamilies that need to be imported from Google Fonts
 
 ```javascript
-  theme: {
+  themeV5: {
     googleFonts: 'Poppins, Lato',
     typography: {
       fontFamily: 'Poppins' //default fontFamily
@@ -207,7 +240,7 @@ But, if the host page don't import the necessary fonts, you should also inform t
 To change the top navigation bar (where you have the search and the menu)
 
 ```javascript
-  theme: {
+  themeV5: {
     overrides: {
       MuiAppBar: {
         colorPrimary: {
@@ -224,12 +257,28 @@ To change the top navigation bar (where you have the search and the menu)
 This will change the styling of the left side menu within the project page
 
 ```javascript
-  theme: {
+  themeV5: {
     verticalMenu: {
       backgroundColor: '#FAFAFA',
     },
   }
 ```
+
+### Theme creator helper
+
+You can use this [@mui theme generator](https://zenoo.github.io/mui-theme-creator) to create your theme.
+
+
+## Theme (material-ui v4 - deprecated)
+
+* the property theme was deprecated in favor of themeV5 * 
+
+Rhodium24 uses the React-MaterialUI library, allowing the use of `ThemeOptions` to customize many aspects of the user interface. Please refer to a sample implmentation of this mechanism in the examples folder. Some common customization could be the following.
+
+if you'd like to see all the default material-ui properties that can be changed, please check [material-ui's default theme](https://material-ui.com/customization/default-theme/).
+
+Needs inspiration? checkout the [material theme creator](https://bareynol.github.io/mui-theme-creator/)
+
 
 ## Advanced
 
@@ -256,7 +305,7 @@ const rh24 = new rh24Sdk.Rh24WebApp({
                 }
             }
             theme: {
-                logoSrc: '<COMPANY LOGO>,
+                logoSrc: '<COMPANY LOGO>',
             }
         })
 

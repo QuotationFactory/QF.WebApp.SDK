@@ -6,45 +6,93 @@ trigger:
 pr: none
 
 stages:
-  - stage: 'build_and_deploy_to_cdn'
-    displayName: 'BuildAndCopy'
+  - stage: 'build'
+    displayName: 'build to dist'
     pool:
-      vmImage: 'windows-latest'
+      vmImage: 'ubuntu-latest'
     jobs:
       - job: 'Build'
         displayName: 'Build'
         steps:
           - task: NodeTool@0
             inputs:
-              versionSpec: '19.x'
+              versionSpec: '18.x'
             displayName: 'install node'
           - script: |
               npm install && npm run build && ls dist
             displayName: 'Build'
-          - task: AzureFileCopy@3
-            displayName: 'Copy to Dev'
-            inputs:
-              SourcePath: '$(System.DefaultWorkingDirectory)/dist'
-              azureSubscription: $(AzureSubscription_dev)
-              Destination: 'AzureBlob'
-              storage: $(StorageAccountName_dev)
-              ContainerName: '$web'
-              BlobPrefix: 'sdk'
-          - task: AzureFileCopy@3
-            displayName: 'Copy to UAT'
-            inputs:
-              SourcePath: '$(System.DefaultWorkingDirectory)/dist'
-              azureSubscription: $(AzureSubscription_uat)
-              Destination: 'AzureBlob'
-              storage: $(StorageAccountName_uat)
-              ContainerName: '$web'
-              BlobPrefix: 'sdk'
-          - task: AzureFileCopy@3
-            displayName: 'copy to prd'
-            inputs:
-              SourcePath: '$(System.DefaultWorkingDirectory)/dist'
-              azureSubscription: $(AzureSubscription)
-              Destination: 'AzureBlob'
-              storage: $(StorageAccountName)
-              ContainerName: '$web'
-              BlobPrefix: 'sdk'
+          - publish: $(System.DefaultWorkingDirectory)/dist
+            artifact: dist
+  - stage: 'dev'
+    pool:
+      vmImage: 'windows-latest'
+    displayName: 'deploy to dev'
+    dependsOn: 'build'
+    jobs:
+      - deployment: deploy_dev
+        displayName: deploy dev
+        environment: dev
+        strategy:
+          runOnce:
+            deploy:
+              steps:
+                - download: current
+                  artifact: dist
+                - script: |
+                    ls $(Pipeline.Workspace)\dist
+                - task: AzureFileCopy@5
+                  inputs:
+                    SourcePath: '$(Pipeline.Workspace)\\dist'
+                    azureSubscription: $(AzureSubscription_dev)
+                    Destination: 'AzureBlob'
+                    storage: $(StorageAccountName_dev)
+                    ContainerName: '$web'
+                    BlobPrefix: 'sdk'
+  - stage: 'uat'
+    pool:
+      vmImage: 'windows-latest'
+    displayName: 'deploy to uat'
+    dependsOn: 'build'
+    jobs:
+      - deployment: deploy_uat
+        displayName: deploy uat
+        environment: uat
+        strategy:
+          runOnce:
+            deploy:
+              steps:
+                - download: current
+                  artifact: dist
+                - task: AzureFileCopy@5
+                  displayName: 'Copy to UAT'
+                  inputs:
+                    SourcePath: '$(System.DefaultWorkingDirectory)\\dist'
+                    azureSubscription: $(AzureSubscription_uat)
+                    Destination: 'AzureBlob'
+                    storage: $(StorageAccountName_uat)
+                    ContainerName: '$web'
+                    BlobPrefix: 'sdk'
+  - stage: 'prd'
+    pool:
+      vmImage: 'windows-latest'
+    displayName: 'deploy to prd'
+    dependsOn: 'build'
+    jobs:
+      - deployment: deploy_prd
+        displayName: deploy prd
+        environment: prd
+        strategy:
+          runOnce:
+            deploy:
+              steps:
+                - download: current
+                  artifact: dist
+                - task: AzureFileCopy@5
+                  displayName: 'copy to prd'
+                  inputs:
+                    SourcePath: '$(System.DefaultWorkingDirectory)\\dist'
+                    azureSubscription: $(AzureSubscription_prd)
+                    Destination: 'AzureBlob'
+                    storage: $(StorageAccountName_prd)
+                    ContainerName: '$web'
+                    BlobPrefix: 'sdk'
