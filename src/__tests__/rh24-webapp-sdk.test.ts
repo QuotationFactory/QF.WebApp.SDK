@@ -72,6 +72,14 @@ test('should append random v parameter with ? if no query strings are present in
   expect(iframe.src).toMatch(/\?v=[d]*/)
 })
 
+test('should add the parameter to allow clipboard read and write from app domain', () => {
+  const iframe = renderRhodium('app', '/path')
+
+  expect(iframe.allow).toBe(
+    'clipboard-write self https://unit-test.rhodium24.io; clipboard-read self https://unit-test.rhodium24.io'
+  )
+})
+
 test('should not append random v parameter if enable cache is true', () => {
   rh24 = new Rh24WebApp({
     partyId: 'test-party',

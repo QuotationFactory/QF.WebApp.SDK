@@ -71,6 +71,8 @@ export class Rh24WebApp {
     iframe.sandbox =
       'allow-top-navigation allow-scripts allow-same-origin allow-forms allow-modals allow-top-navigation-by-user-activation allow-downloads allow-popups allow-popups-to-escape-sandbox'
 
+    iframe.allow = `clipboard-write self ${this._config.rh24BaseUrl}; clipboard-read self ${this._config.rh24BaseUrl}`
+
     element.style.overflowY = 'hidden'
 
     element.appendChild(iframe)
