@@ -1,6 +1,6 @@
 {
   "name": "@metal-heaven/rh24-webapp-sdk",
-  "version": "2.0.0-rc1",
+  "version": "2.0.1",
   "description": "Rh24 webapp integration library",
   "files": [
     "dist/**/*"
