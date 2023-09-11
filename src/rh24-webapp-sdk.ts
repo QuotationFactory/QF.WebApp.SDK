@@ -49,22 +49,34 @@ export class Rh24WebApp {
 
     const iframe = document.createElement('iframe')
 
-    let iframeSrc = `${this._config.rh24BaseUrl.replace(/'/g, '')}/app/${
+    const iframeSrc = `${this._config.rh24BaseUrl.replace(/'/g, '')}/app/${
       relativePath.startsWith('/') ? relativePath.slice(1) : relativePath
     }`
-    if (!this._config.options?.enableCache) {
-      iframeSrc += `${iframeSrc.indexOf('?') > -1 ? '&' : '?'}v=${Math.random()}`
-      iframeSrc = iframeSrc.replace('/?', '?')
 
-      console.info('cache disabled', iframeSrc)
+    const url = new URL(iframeSrc)
+    const params = new URLSearchParams()
+
+    if (!this._config.options?.enableCache) {
+      params.append('v', Math.random().toString())
     }
 
-    iframe.src = iframeSrc
+    if (window.location.search) {
+      const parentParams = new URLSearchParams(window.location.search)
+      parentParams.forEach((value, key) => {
+        params.append(key, value)
+      })
+    }
+
+    url.search = params.toString()
+
+    iframe.src = url.toString()
+
     iframe.id = 'rh24-iframe'
     iframe.style.width = '100%'
     iframe.style.height = `calc(100vh - ${this._config.options?.marginTop || 0})`
     iframe.style.border = 'none'
     iframe.setAttribute('data-testid', 'rh24-iframe')
+    iframe.setAttribute('data-requested-search', window.location.search)
 
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
