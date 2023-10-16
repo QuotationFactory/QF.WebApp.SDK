@@ -76,7 +76,7 @@ test('should add the parameter to allow clipboard read and write from app domain
   const iframe = renderRhodium('app', '/path')
 
   expect(iframe.allow).toBe(
-    'clipboard-write self https://unit-test.rhodium24.io; clipboard-read self https://unit-test.rhodium24.io'
+    'clipboard-write https://unit-test.rhodium24.io; clipboard-read https://unit-test.rhodium24.io'
   )
 })
 
