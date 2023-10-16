@@ -61,16 +61,15 @@ stages:
             deploy:
               steps:
                 - download: current
-                  artifact: dist
+                  artifact: sdk
                 - task: AzureFileCopy@5
                   displayName: 'Copy to UAT'
                   inputs:
-                    SourcePath: '$(Pipeline.Workspace)\\dist'
+                    SourcePath: '$(Pipeline.Workspace)\\sdk'
                     azureSubscription: $(AzureSubscription_uat)
                     Destination: 'AzureBlob'
                     storage: $(StorageAccountName_uat)
                     ContainerName: '$web'
-                    BlobPrefix: 'sdk'
   - stage: 'prd'
     pool:
       vmImage: 'windows-latest'
@@ -85,13 +84,12 @@ stages:
             deploy:
               steps:
                 - download: current
-                  artifact: dist
+                  artifact: sdk
                 - task: AzureFileCopy@5
                   displayName: 'copy to prd'
                   inputs:
-                    SourcePath: '$(Pipeline.Workspace)\\dist'
+                    SourcePath: '$(Pipeline.Workspace)\\sdk'
                     azureSubscription: $(AzureSubscription_prd)
                     Destination: 'AzureBlob'
                     storage: $(StorageAccountName_prd)
                     ContainerName: '$web'
-                    BlobPrefix: 'sdk'
