@@ -22,7 +22,7 @@ stages:
               npm install && npm run build && ls dist
             displayName: 'Build'
           - publish: $(System.DefaultWorkingDirectory)/dist
-            artifact: dist
+            artifact: sdk
   - stage: 'dev'
     pool:
       vmImage: 'windows-latest'
@@ -37,17 +37,16 @@ stages:
             deploy:
               steps:
                 - download: current
-                  artifact: dist
+                  artifact: sdk
                 - script: |
-                    ls $(Pipeline.Workspace)\dist
+                    ls $(Pipeline.Workspace)\sdk
                 - task: AzureFileCopy@5
                   inputs:
-                    SourcePath: '$(Pipeline.Workspace)\\dist'
+                    SourcePath: '$(Pipeline.Workspace)\\sdk'
                     azureSubscription: $(AzureSubscription_dev)
                     Destination: 'AzureBlob'
                     storage: $(StorageAccountName_dev)
                     ContainerName: '$web'
-                    BlobPrefix: 'sdk'
   - stage: 'uat'
     pool:
       vmImage: 'windows-latest'
