@@ -114,7 +114,6 @@ export class Rh24WebApp {
         break
       }
       case 'RH24_EMBEDDED_SETUP_RETRY': {
-        console.log('sdk: setup retry')
         this.sendConfigurationMessage()
         break
       }
