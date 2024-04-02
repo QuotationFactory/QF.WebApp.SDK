@@ -13,11 +13,15 @@ type DocumentTitleChange = {
 }
 
 type SendConfiguration = {
-  type: 'RH24_EMBEDDED_SETUP_RETRY'
-  payload: Rh24ApplicationConfig
+  type: 'RH24_EMBEDDED_SETUP'
+  payload: Rh24ApplicationConfig & { parentHref: string; parentTitle: string }
 }
 
-type Rh24EmbeddedMessage = LocationChangeEvent | DocumentTitleChange | SendConfiguration
+type SendConfigurationRetry = {
+  type: 'RH24_EMBEDDED_SETUP_RETRY'
+}
+
+type Rh24EmbeddedMessage = LocationChangeEvent | DocumentTitleChange | SendConfiguration | SendConfigurationRetry
 
 export class Rh24WebApp {
   private _config: Rh24ApplicationConfig
@@ -121,10 +125,13 @@ export class Rh24WebApp {
   }
 
   private sendConfigurationMessage() {
-    const message = {
+    const message: Rh24EmbeddedMessage = {
       type: 'RH24_EMBEDDED_SETUP',
       payload: {
         partyId: this._config?.partyId,
+        rh24BaseUrl: this._config?.rh24BaseUrl,
+        parentHref: window.location.href,
+        parentTitle: document.title,
         theme: { ...(this._config?.theme || {}) },
         themeV5: { ...(this._config?.themeV5 || {}) },
         landingPageUrl: this._config?.landingPageUrl
