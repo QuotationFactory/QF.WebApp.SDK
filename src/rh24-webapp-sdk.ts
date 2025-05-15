@@ -1,9 +1,17 @@
 import { Rh24ApplicationConfig } from './types'
 
+type SearchParamsChanged = {
+  type: 'RH24_EMBEDDED_SEARCH_PARAMS_CHANGED'
+  payload: {
+    queryString: string
+  }
+}
+
 type LocationChangeEvent = {
   type: 'RH24_EMBEDDED_LOCATION_CHANGE'
   payload: {
     pathname: string
+    search: string
   }
 }
 
@@ -21,7 +29,12 @@ type SendConfigurationRetry = {
   type: 'RH24_EMBEDDED_SETUP_RETRY'
 }
 
-type Rh24EmbeddedMessage = LocationChangeEvent | DocumentTitleChange | SendConfiguration | SendConfigurationRetry
+type Rh24EmbeddedMessage =
+  | LocationChangeEvent
+  | DocumentTitleChange
+  | SendConfiguration
+  | SendConfigurationRetry
+  | SearchParamsChanged
 
 export class Rh24WebApp {
   private _config: Rh24ApplicationConfig
@@ -58,9 +71,8 @@ export class Rh24WebApp {
 
     const iframe = document.createElement('iframe')
 
-    let iframeSrc = `${this._config.rh24BaseUrl.replace(/'/g, '')}/app/${
-      relativePath.startsWith('/') ? relativePath.slice(1) : relativePath
-    }`
+    let iframeSrc = `${this._config.rh24BaseUrl.replace(/'/g, '')}/app/${relativePath.startsWith('/') ? relativePath.slice(1) : relativePath
+      }`
     if (!this._config.options?.enableCache) {
       iframeSrc += `${iframeSrc.indexOf('?') > -1 ? '&' : '?'}v=${Math.random()}`
       iframeSrc = iframeSrc.replace('/?', '?')
@@ -73,11 +85,22 @@ export class Rh24WebApp {
     iframe.style.border = 'none'
     iframe.setAttribute('data-testid', 'rh24-iframe')
 
+    const iframeSandbox = [
+      'allow-top-navigation',
+      'allow-scripts',
+      'allow-same-origin',
+      'allow-forms',
+      'allow-modals',
+      'allow-top-navigation-by-user-activation',
+      'allow-downloads',
+      'allow-popups',
+      'allow-popups-to-escape-sandbox',
+      'allow-storage-access-by-user-activation'
+    ]
+
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
-    iframe.sandbox =
-      'allow-top-navigation allow-scripts allow-same-origin allow-forms allow-modals allow-top-navigation-by-user-activation allow-downloads allow-popups allow-popups-to-escape-sandbox'
-
+    iframe.sandbox = iframeSandbox.join(' ')
     iframe.allow = `clipboard-write ${this._config.rh24BaseUrl}; clipboard-read ${this._config.rh24BaseUrl}`
 
     element.style.overflowY = 'hidden'
@@ -92,6 +115,22 @@ export class Rh24WebApp {
     return iframe
   }
 
+  private updateAppQueryString(queryString: string) {
+    let newHash = document.location.hash
+
+    if (newHash) {
+      const queryStringIndex = newHash.indexOf('?')
+      if (queryStringIndex > -1) {
+        newHash = newHash.substring(0, queryStringIndex)
+      }
+
+      const prefix = queryString[0] === "?" ? "" : "?"
+      newHash += prefix + queryString
+
+      document.location.hash = newHash
+    }
+  }
+
   private handleMessages(ev: MessageEvent<Rh24EmbeddedMessage>) {
     if (ev.origin !== this._config.rh24BaseUrl) {
       return
@@ -100,6 +139,7 @@ export class Rh24WebApp {
     switch (ev.data.type) {
       case 'RH24_EMBEDDED_LOCATION_CHANGE': {
         const rh24EmbededRoute: string = (ev.data.payload?.pathname || '/').replace('/app', '') || '/'
+
         if (
           this._config.options?.replaceHistoryStateOnLocationChange &&
           rh24EmbededRoute.indexOf('myorganizations') === -1
@@ -108,6 +148,14 @@ export class Rh24WebApp {
         }
         if (this._config.options?.onLocationChange) {
           this._config.options?.onLocationChange(rh24EmbededRoute)
+        }
+
+        if (ev.data.payload.search) {
+          if (window.location.hash.includes(ev.data.payload.search)) {
+            return
+          } else {
+            this.updateAppQueryString(ev.data.payload.search)
+          }
         }
         break
       }
@@ -119,6 +167,10 @@ export class Rh24WebApp {
       }
       case 'RH24_EMBEDDED_SETUP_RETRY': {
         this.sendConfigurationMessage()
+        break
+      }
+      case 'RH24_EMBEDDED_SEARCH_PARAMS_CHANGED': {
+        this.updateAppQueryString(ev.data.payload.queryString)
         break
       }
     }
