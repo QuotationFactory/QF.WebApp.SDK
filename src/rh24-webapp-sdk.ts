@@ -73,11 +73,22 @@ export class Rh24WebApp {
     iframe.style.border = 'none'
     iframe.setAttribute('data-testid', 'rh24-iframe')
 
+    const iframeSandbox = [
+      'allow-top-navigation',
+      'allow-scripts',
+      'allow-same-origin',
+      'allow-forms',
+      'allow-modals',
+      'allow-top-navigation-by-user-activation',
+      'allow-downloads',
+      'allow-popups',
+      'allow-popups-to-escape-sandbox',
+      'allow-storage-access-by-user-activation'
+    ]
+
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
-    iframe.sandbox =
-      'allow-top-navigation allow-scripts allow-same-origin allow-forms allow-modals allow-top-navigation-by-user-activation allow-downloads allow-popups allow-popups-to-escape-sandbox'
-
+    iframe.sandbox = iframeSandbox.join(' ')
     iframe.allow = `clipboard-write ${this._config.rh24BaseUrl}; clipboard-read ${this._config.rh24BaseUrl}`
 
     element.style.overflowY = 'hidden'
