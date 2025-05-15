@@ -1,9 +1,17 @@
 import { Rh24ApplicationConfig } from './types'
 
+type SearchParamsChanged = {
+  type: 'RH24_EMBEDDED_SEARCH_PARAMS_CHANGED',
+  payload: {
+    queryString: string
+  }
+}
+
 type LocationChangeEvent = {
   type: 'RH24_EMBEDDED_LOCATION_CHANGE'
   payload: {
     pathname: string
+    search: string
   }
 }
 
@@ -21,7 +29,7 @@ type SendConfigurationRetry = {
   type: 'RH24_EMBEDDED_SETUP_RETRY'
 }
 
-type Rh24EmbeddedMessage = LocationChangeEvent | DocumentTitleChange | SendConfiguration | SendConfigurationRetry
+type Rh24EmbeddedMessage = LocationChangeEvent | DocumentTitleChange | SendConfiguration | SendConfigurationRetry | SearchParamsChanged
 
 export class Rh24WebApp {
   private _config: Rh24ApplicationConfig
@@ -58,9 +66,8 @@ export class Rh24WebApp {
 
     const iframe = document.createElement('iframe')
 
-    let iframeSrc = `${this._config.rh24BaseUrl.replace(/'/g, '')}/app/${
-      relativePath.startsWith('/') ? relativePath.slice(1) : relativePath
-    }`
+    let iframeSrc = `${this._config.rh24BaseUrl.replace(/'/g, '')}/app/${relativePath.startsWith('/') ? relativePath.slice(1) : relativePath
+      }`
     if (!this._config.options?.enableCache) {
       iframeSrc += `${iframeSrc.indexOf('?') > -1 ? '&' : '?'}v=${Math.random()}`
       iframeSrc = iframeSrc.replace('/?', '?')
@@ -110,6 +117,14 @@ export class Rh24WebApp {
 
     switch (ev.data.type) {
       case 'RH24_EMBEDDED_LOCATION_CHANGE': {
+        console.log('on location change', ev.data.payload)
+
+        if (ev.data.payload.search && window.location.hash.includes(ev.data.payload.search)) {
+          console.log('onLocationChanged ignored because window.hash includes payload.search')
+
+          return
+        }
+
         const rh24EmbededRoute: string = (ev.data.payload?.pathname || '/').replace('/app', '') || '/'
         if (
           this._config.options?.replaceHistoryStateOnLocationChange &&
@@ -130,6 +145,25 @@ export class Rh24WebApp {
       }
       case 'RH24_EMBEDDED_SETUP_RETRY': {
         this.sendConfigurationMessage()
+        break
+      }
+      case 'RH24_EMBEDDED_SEARCH_PARAMS_CHANGED': {
+        // document.location.search = ev.data.payload.queryString
+        let newHash = document.location.hash
+
+        console.log('the new hash is ', newHash)
+
+        if (newHash) {
+          const queryStringIndex = newHash.indexOf("?")
+          if (queryStringIndex > -1) {
+            newHash = newHash.substring(0, queryStringIndex)
+          }
+
+          newHash += '?' + ev.data.payload.queryString
+
+          console.log('will set the hash to ', newHash)
+          document.location.hash = newHash
+        }
         break
       }
     }
