@@ -115,6 +115,22 @@ export class Rh24WebApp {
     return iframe
   }
 
+  private updateAppQueryString(queryString: string) {
+    let newHash = document.location.hash
+
+    if (newHash) {
+      const queryStringIndex = newHash.indexOf('?')
+      if (queryStringIndex > -1) {
+        newHash = newHash.substring(0, queryStringIndex)
+      }
+
+      const prefix = queryString[0] === "?" ? "" : "?"
+      newHash += prefix + queryString
+
+      document.location.hash = newHash
+    }
+  }
+
   private handleMessages(ev: MessageEvent<Rh24EmbeddedMessage>) {
     if (ev.origin !== this._config.rh24BaseUrl) {
       return
@@ -122,11 +138,8 @@ export class Rh24WebApp {
 
     switch (ev.data.type) {
       case 'RH24_EMBEDDED_LOCATION_CHANGE': {
-        if (ev.data.payload.search && window.location.hash.includes(ev.data.payload.search)) {
-          return
-        }
-
         const rh24EmbededRoute: string = (ev.data.payload?.pathname || '/').replace('/app', '') || '/'
+
         if (
           this._config.options?.replaceHistoryStateOnLocationChange &&
           rh24EmbededRoute.indexOf('myorganizations') === -1
@@ -135,6 +148,14 @@ export class Rh24WebApp {
         }
         if (this._config.options?.onLocationChange) {
           this._config.options?.onLocationChange(rh24EmbededRoute)
+        }
+
+        if (ev.data.payload.search) {
+          if (window.location.hash.includes(ev.data.payload.search)) {
+            return
+          } else {
+            this.updateAppQueryString(ev.data.payload.search)
+          }
         }
         break
       }
@@ -149,18 +170,7 @@ export class Rh24WebApp {
         break
       }
       case 'RH24_EMBEDDED_SEARCH_PARAMS_CHANGED': {
-        let newHash = document.location.hash
-
-        if (newHash) {
-          const queryStringIndex = newHash.indexOf('?')
-          if (queryStringIndex > -1) {
-            newHash = newHash.substring(0, queryStringIndex)
-          }
-
-          newHash += '?' + ev.data.payload.queryString
-
-          document.location.hash = newHash
-        }
+        this.updateAppQueryString(ev.data.payload.queryString)
         break
       }
     }
