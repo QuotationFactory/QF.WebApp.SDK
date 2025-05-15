@@ -45,7 +45,7 @@ test('after call render, the iframe should be visible with the right sandbox', (
 
   expect(iframe).not.toBeNull()
   expect(iframe.sandbox).toBe(
-    'allow-top-navigation allow-scripts allow-same-origin allow-forms allow-modals allow-top-navigation-by-user-activation allow-downloads allow-popups allow-popups-to-escape-sandbox'
+    'allow-top-navigation allow-scripts allow-same-origin allow-forms allow-modals allow-top-navigation-by-user-activation allow-downloads allow-popups allow-popups-to-escape-sandbox allow-storage-access-by-user-activation'
   )
 })
 
@@ -54,7 +54,7 @@ test('should render at body tag if rootElementId is null', () => {
 
   expect(iframe).not.toBeNull()
   expect(iframe.sandbox).toBe(
-    'allow-top-navigation allow-scripts allow-same-origin allow-forms allow-modals allow-top-navigation-by-user-activation allow-downloads allow-popups allow-popups-to-escape-sandbox'
+    'allow-top-navigation allow-scripts allow-same-origin allow-forms allow-modals allow-top-navigation-by-user-activation allow-downloads allow-popups allow-popups-to-escape-sandbox allow-storage-access-by-user-activation'
   )
 })
 

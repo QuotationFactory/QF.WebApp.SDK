@@ -71,9 +71,8 @@ export class Rh24WebApp {
 
     const iframe = document.createElement('iframe')
 
-    let iframeSrc = `${this._config.rh24BaseUrl.replace(/'/g, '')}/app/${
-      relativePath.startsWith('/') ? relativePath.slice(1) : relativePath
-    }`
+    let iframeSrc = `${this._config.rh24BaseUrl.replace(/'/g, '')}/app/${relativePath.startsWith('/') ? relativePath.slice(1) : relativePath
+      }`
     if (!this._config.options?.enableCache) {
       iframeSrc += `${iframeSrc.indexOf('?') > -1 ? '&' : '?'}v=${Math.random()}`
       iframeSrc = iframeSrc.replace('/?', '?')
@@ -150,7 +149,6 @@ export class Rh24WebApp {
         break
       }
       case 'RH24_EMBEDDED_SEARCH_PARAMS_CHANGED': {
-        // document.location.search = ev.data.payload.queryString
         let newHash = document.location.hash
 
         if (newHash) {
