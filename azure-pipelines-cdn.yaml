@@ -45,7 +45,7 @@ stages:
                     SourcePath: '$(Pipeline.Workspace)\\sdk'
                     azureSubscription: 'rh24-dev'
                     Destination: 'AzureBlob'
-                    storage: '$(StorageAccountName_dev)'
+                    storage: 'rh24stgfrontenddev'
                     ContainerName: '$web'
   - stage: 'uat'
     pool:
@@ -68,7 +68,7 @@ stages:
                     SourcePath: '$(Pipeline.Workspace)\\sdk'
                     azureSubscription: 'rh24-uat'
                     Destination: 'AzureBlob'
-                    storage: '$(StorageAccountName_uat)'
+                    storage: 'rh24stgfrontenduat'
                     ContainerName: '$web'
   - stage: 'prd'
     pool:
@@ -91,5 +91,5 @@ stages:
                     SourcePath: '$(Pipeline.Workspace)\\sdk'
                     azureSubscription: 'rh24-prd'
                     Destination: 'AzureBlob'
-                    storage: '$(StorageAccountName_prd)'
+                    storage: 'rh24stgfrontendprd'
                     ContainerName: '$web'
