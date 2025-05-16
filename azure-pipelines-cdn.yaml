@@ -43,9 +43,9 @@ stages:
                 - task: AzureFileCopy@5
                   inputs:
                     SourcePath: '$(Pipeline.Workspace)\\sdk'
-                    azureSubscription: $(AzureSubscription_dev)
+                    azureSubscription: '$(subscription_dev)'
                     Destination: 'AzureBlob'
-                    storage: $(StorageAccountName_dev)
+                    storage: '$(storage_dev)'
                     ContainerName: '$web'
   - stage: 'uat'
     pool:
@@ -66,9 +66,9 @@ stages:
                   displayName: 'Copy to UAT'
                   inputs:
                     SourcePath: '$(Pipeline.Workspace)\\sdk'
-                    azureSubscription: $(AzureSubscription_uat)
+                    azureSubscription: '$(subscription_uat)'
                     Destination: 'AzureBlob'
-                    storage: $(StorageAccountName_uat)
+                    storage: '$(storage_uat)'
                     ContainerName: '$web'
   - stage: 'prd'
     pool:
@@ -89,7 +89,7 @@ stages:
                   displayName: 'copy to prd'
                   inputs:
                     SourcePath: '$(Pipeline.Workspace)\\sdk'
-                    azureSubscription: $(AzureSubscription_prd)
+                    azureSubscription: '$(subscription_prd)'
                     Destination: 'AzureBlob'
-                    storage: $(StorageAccountName_prd)
+                    storage: '$(storage_prd)'
                     ContainerName: '$web'
